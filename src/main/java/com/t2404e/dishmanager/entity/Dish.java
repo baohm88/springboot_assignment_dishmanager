@@ -1,5 +1,6 @@
 package com.t2404e.dishmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "dishes")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Dish {
     @Id
     @Column(name = "id",length = 16)
@@ -18,7 +20,7 @@ public class Dish {
     @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
-    @Column(name = "description", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "imageUrl", columnDefinition = "TEXT", nullable = false)
     private String imageUrl;
 
     @Column(name = "price", columnDefinition = "DECIMAL", nullable = false)

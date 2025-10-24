@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class DishRequestDTO {
+public class DishDTO {
     @NotBlank
     @Size(min = 8, max = 250, message = "Name must be between 8 - 250 characters long")
     private String name;

@@ -1,13 +1,15 @@
 package com.t2404e.dishmanager.controller;
 
 import com.t2404e.dishmanager.entity.Category;
-import com.t2404e.dishmanager.repository.CategoryRepository;
+import com.t2404e.dishmanager.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,11 +20,15 @@ import java.util.List;
 public class CategoryController {
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
-    @Operation(summary = "Get all categories")
-    @GetMapping
+
+    @Operation(summary = "Get all categories", description = "Retrieve all categories from the database.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved list")
+    })
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Category>> getAll() {
-        return ResponseEntity.ok(categoryRepository.findAll());
+        return ResponseEntity.ok(categoryService.findAll());
     }
 }

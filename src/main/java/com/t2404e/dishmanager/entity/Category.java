@@ -1,32 +1,35 @@
 package com.t2404e.dishmanager.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import lombok.*;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "categories")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "BIGINT")
     private Long id;
-    @NotBlank
-    @Size(min = 3, max = 100)
-    @Column(nullable = false, unique = true, length = 100)
+
+    @Column(name = "name", nullable = false, unique = true, length = 100, columnDefinition = "VARCHAR(100)")
     private String name;
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+    @OneToMany(
+            mappedBy = "category",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    @JsonManagedReference
+    @Builder.Default
+    private List<Dish> dishes = new ArrayList<>();
 }

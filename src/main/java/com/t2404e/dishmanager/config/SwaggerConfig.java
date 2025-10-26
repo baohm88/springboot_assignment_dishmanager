@@ -14,7 +14,7 @@ public class SwaggerConfig {
                 .title("🍽️ Dish Manager API")
                 .description("API quản lý Món ăn & Danh mục cho Nhà hàng — FPT Aptech Assignment")
                 .version("1.0.0")
-                .contact(new Contact().name("Ha Manh Bao").email("your.email@example.com"))
+                .contact(new Contact().name("Ha Manh Bao").email("baohm88@gmail.com"))
         );
     }
 }

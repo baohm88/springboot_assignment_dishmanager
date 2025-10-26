@@ -1,6 +1,6 @@
 package com.t2404e.dishmanager.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Dish {
 
     @Id
@@ -45,6 +46,6 @@ public class Dish {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false, columnDefinition = "BIGINT")
-    @JsonBackReference
+    @JsonIgnoreProperties({"dishes", "hibernateLazyInitializer", "handler"})
     private Category category;
 }

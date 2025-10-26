@@ -23,12 +23,11 @@ public class CategoryController {
     private CategoryService categoryService;
 
 
-    @Operation(summary = "Get all categories", description = "Retrieve all categories from the database.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved list")
-    })
+    @Operation(summary = "Get all categories with their dishes", description = "Trả về danh sách tất cả danh mục và các món ăn thuộc từng danh mục")
+    @ApiResponse(responseCode = "200", description = "Danh sách danh mục và món ăn")
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Category>> getAll() {
-        return ResponseEntity.ok(categoryService.findAll());
+    public ResponseEntity<List<Category>> getAllCategoriesWithDishes() {
+        List<Category> categories = categoryService.findAll();
+        return ResponseEntity.ok(categories);
     }
 }

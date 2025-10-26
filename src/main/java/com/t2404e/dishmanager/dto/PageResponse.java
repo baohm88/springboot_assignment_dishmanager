@@ -1,32 +1,32 @@
 package com.t2404e.dishmanager.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PageResponse<T> {
+
+
+    @Schema(description = "Danh sách dữ liệu hiện tại (theo trang)", example = "[{...}, {...}]")
     private List<T> content;
-    private int page;
-    private int limit;
-    private int totalPages;
-    private int totalElements;
 
-    public PageResponse() {
-    }
-    public PageResponse(List<T> content, int page, int limit, int totalPages, int totalElements) {
-        this.content = content;
-        this.page = page;
-        this.limit = limit;
-        this.totalPages = totalPages;
-        this.totalElements = totalElements;
-    }
+    @Schema(description = "Số trang hiện tại (bắt đầu từ 1)", example = "1")
+    private Integer currentPage;
 
-    public List<T> getContent() { return content; }
-    public void setContent(List<T> content) { this.content = content; }
-    public int getPage() { return page; }
-    public void setPage(int page) { this.page = page; }
-    public int getLimit() { return limit; }
-    public void setLimit(int limit) { this.limit = limit; }
-    public int getTotalPages() { return totalPages; }
-    public void setTotalPages(int totalPages) { this.totalPages = totalPages; }
-    public int getTotalElements() { return totalElements; }
-    public void setTotalElements(int totalElements) { this.totalElements = totalElements; }
+    @Schema(description = "Số lượng bản ghi mỗi trang", example = "10")
+    private Integer pageSize;
+
+    @Schema(description = "Tổng số trang", example = "5")
+    private Integer totalPages;
+
+    @Schema(description = "Tổng số bản ghi (toàn bộ)", example = "47")
+    private Integer totalElements;
 }

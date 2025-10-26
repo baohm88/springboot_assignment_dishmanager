@@ -1,6 +1,6 @@
 package com.t2404e.dishmanager.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
 
     @Id
@@ -29,7 +30,7 @@ public class Category {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference
+    @JsonIgnoreProperties({"category", "hibernateLazyInitializer", "handler"})
     @Builder.Default
     private List<Dish> dishes = new ArrayList<>();
 }

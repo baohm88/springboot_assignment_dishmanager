@@ -20,7 +20,7 @@ public class DishController {
     private DishService dishService;
 
     @Operation(summary = "List dishes with pagination, sorting, filtering")
-    @GetMapping
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<PageResponse<Dish>> list(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "5") Integer limit,
@@ -38,26 +38,29 @@ public class DishController {
     }
 
     @Operation(summary = "Get dish by id")
-    @GetMapping("/{id}")
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+//    @GetMapping("/{id}")
     public ResponseEntity<Dish> get(@PathVariable String id) {
         return ResponseEntity.ok(dishService.getDish(id));
     }
 
     @Operation(summary = "Create new dish (status=ON_SALE, startDate auto)")
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Dish> create(@Valid @RequestBody DishDTO dto) {
         Dish created = dishService.createDish(dto);
         return ResponseEntity.status(201).body(created);
     }
 
     @Operation(summary = "Update dish by id (cannot change to DELETED here)")
-    @PutMapping("/{id}")
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+//    @PutMapping("/{id}")
     public ResponseEntity<Dish> update(@PathVariable String id, @Valid @RequestBody DishDTO dto) {
         return ResponseEntity.ok(dishService.updateDish(id, dto));
     }
 
     @Operation(summary = "Soft delete dish by id (status=DELETED)")
-    @DeleteMapping("/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+//    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         dishService.softDelete(id);
         return ResponseEntity.noContent().build();

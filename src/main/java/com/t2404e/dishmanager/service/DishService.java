@@ -88,7 +88,7 @@ public class DishService {
         return new PageResponse<>(pageData.getContent(), p, l, pageData.getTotalPages(), (int) pageData.getTotalElements());
     }
 
-    public Dish getDish(String id) {
+    public Dish getDishById(String id) {
         return dishRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Dish not found: " + id));
     }
@@ -109,7 +109,7 @@ public class DishService {
         return dishRepository.save(dish);
     }
 
-    public Dish updateDish(String id, DishDTO dto) {
+    public Dish updateDishById(String id, DishDTO dto) {
         Dish dish = dishRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Dish not found: " + id));
 

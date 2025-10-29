@@ -21,7 +21,7 @@ public class DishController {
 
     @Operation(summary = "List dishes with pagination, sorting, filtering")
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<PageResponse<Dish>> list(
+    public ResponseEntity<PageResponse<Dish>> getAllDishs(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "5") Integer limit,
             @RequestParam(defaultValue = "startDate") String sortBy,
@@ -39,29 +39,26 @@ public class DishController {
 
     @Operation(summary = "Get dish by id")
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-//    @GetMapping("/{id}")
-    public ResponseEntity<Dish> get(@PathVariable String id) {
-        return ResponseEntity.ok(dishService.getDish(id));
+    public ResponseEntity<Dish> getDishById(@PathVariable String id) {
+        return ResponseEntity.ok(dishService.getDishById(id));
     }
 
     @Operation(summary = "Create new dish (status=ON_SALE, startDate auto)")
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Dish> create(@Valid @RequestBody DishDTO dto) {
+    public ResponseEntity<Dish> createDish(@Valid @RequestBody DishDTO dto) {
         Dish created = dishService.createDish(dto);
         return ResponseEntity.status(201).body(created);
     }
 
     @Operation(summary = "Update dish by id (cannot change to DELETED here)")
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-//    @PutMapping("/{id}")
-    public ResponseEntity<Dish> update(@PathVariable String id, @Valid @RequestBody DishDTO dto) {
-        return ResponseEntity.ok(dishService.updateDish(id, dto));
+    public ResponseEntity<Dish> updateDishById(@PathVariable String id, @Valid @RequestBody DishDTO dto) {
+        return ResponseEntity.ok(dishService.updateDishById(id, dto));
     }
 
     @Operation(summary = "Soft delete dish by id (status=DELETED)")
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-//    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> deleteDishById(@PathVariable String id) {
         dishService.softDelete(id);
         return ResponseEntity.noContent().build();
     }

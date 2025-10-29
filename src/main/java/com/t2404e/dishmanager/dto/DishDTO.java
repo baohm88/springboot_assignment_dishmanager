@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class DishDTO {
 
     @Schema(description = "Tên món ăn", example = "Phở bò Hà Nội")
-    @NotBlank
+    @NotBlank(message = "Dish name is required")
     @Size(min = 8, max = 250, message = "Name must be between 8 - 250 characters long")
     private String name;
 
